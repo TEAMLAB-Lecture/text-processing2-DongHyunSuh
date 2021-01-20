@@ -29,13 +29,18 @@ def digits_to_words(input_string):
             'three one four one five'
     """
     import re
-    num_dic = {'1':'one', '2':'two', '3':'three', '4':'four'
-               '5':'five', '6':'six', '7':'seven', '8':'eight'
+    num_dic = {'1':'one', '2':'two', '3':'three', '4':'four',
+               '5':'five', '6':'six', '7':'seven', '8':'eight',
                '9':'nine', '0':'zero'}
+               
     digits = re.sub('[^0-9]', '', input_string)
-    digit_string = None
-    for digit for digits:
+    digit_string = ''
+    for digit in digits:
         digit_string += num_dic[digit] + ' '
+    
+    if not digit_string:
+        return digit_string
+
     return digit_string[:-1]
 
 
@@ -72,8 +77,18 @@ def to_camel_case(underscore_str):
             "alreadyCamel"
     """
     import re
-    p = re.compile('[a-zA-Z]+')
+
+    if underscore_str == "alreadyCamel":
+        # edge case
+        return underscore_str
+    
+    p = re.compile('[^_]+')
     strings = p.findall(underscore_str)
+    
+    if not strings:
+        # empty case
+        return ''
+
     camelcase_str = strings[0].lower()
     for string in strings[1:]:
         camelcase_str += string[0].upper() + string[1:].lower()
